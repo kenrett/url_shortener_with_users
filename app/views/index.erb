@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Welcome to getShorty, the best URL Shortener in the room!</h1>
+  <h3>Serving your shortening needs since 4:25pm<h3>
+  <p>It's neater<b>er</b> than before.</p>
+
+  <div id='errors'>
+    <% if @errors %>
+
+      <% @errors.full_messages.each do |error|%> 
+         <%= error %> 
+         <%end%> 
+    <%end%>
+  </div>
+
+  <form action='/shorten' method ='post'>
+    <input type='text' name='url' placeholder="Insert url here"><br>
+    <input type='submit' value='Get shorty!'>
+  </form>
+
+
+<% unless current_user %>
+  <p>Please login here:</p>
+  <form action='/user/login' method='post'>
+    <input type='text' name='username' placeholder='Insert Username Here' required><br>
+    <input type='password' name='password' placeholder='Insert Password Here' required><br>
+    <input type='submit' value='Login'><br><br>
+  </form
+
+
+  <p>Not a getShorty member? Create an account here!</p>
+  <form action='/user/create_account' method='post'>
+    <input type='text' name='first_name' placeholder='First Name' required>
+    <input type='text' name='last_name' placeholder='Last Name' required>
+    <input type='email' name='email' placeholder='Email' required>
+    <input type='text' name='username' placeholder='Username' required><br>
+    <input type='password' name='password' placeholder='New Password' required><br>
+    <input type='submit' value='Create Account'>
+  </form>
+
+  <% else %>
+  <a href='/user/logout'>Logout</a><br>
+ <a href="/user/view/<%=current_user.id%>">Your Urls</a>
+  <% end %>
+
+</div>

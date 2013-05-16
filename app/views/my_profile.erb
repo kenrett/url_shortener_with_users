@@ -1,0 +1,54 @@
+<div class='container'>
+  <h1>
+    <% if current_user %>
+
+    <%= "Hello" + " " + current_user.first_name %>
+
+    <% end %>
+  </h1>
+
+  <h3><%= @user.first_name.capitalize %>'s page</h3>
+
+
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwtCv3W7ouiLGZMM5yO256fE5HrXZvAzP_8sy4XHa9r6riiZ2v" alt="Mr._Hankey"><br>
+
+
+  <form action='/shorten' method ='post'>
+    <input type='text' name='url' placeholder="Insert url here"><br>
+    <input type='submit' value='Get shorty!'>
+  </form><br>
+
+  <% if current_user && current_user.id == @user.id %>
+  <% if @user.urls %>
+  <table border="1">
+    <tr>
+      <th>URL's</th>
+      <th>Times Clicked</th>
+    </tr>
+    <% @user.urls.each do |url| %>
+    <tr>
+      <td><a href="/<%=url.short_url%>"><%=url.short_url %></a></td>
+      <td><%= url.click_count %></td>
+    </tr>
+    <% end %>
+  </table>
+
+    <% else %>
+
+      <% if @user.urls %>
+      <table border="1">
+        <tr>
+          <th>URL's</th>
+          <% @user.urls.each do |url| %>
+        </tr>
+        <tr>
+          <td><a href="/<%=url.short_url%>"><%=url.short_url %></a></td>
+        </tr>
+            <% end %>
+        </table>
+      <% end %>
+  <% end %>
+  <% end %>
+</div>
+  <div id='logout'><a href='/user/logout'>Logout</a></div>
+
